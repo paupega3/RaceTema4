@@ -245,29 +245,21 @@ la mediana (función `stats::median`) de la variable `size` y almacénalos en la
 
 ```{r}
  pack_sum <- by_package %>% summarise(count = n(), unique = (n_distinct(country)), countries = n_distinct(country), avg_bytes = mean(size))
-
+pack_sum
 
 
 ```
 22. Muestra el 1% de los paquetes que han sido más descargados. Para ello puedes utilizar la función `quantile(????, probs=0.99)`. Siendo ??? la variable de interés, que te permitirá estimar el umbral. Los valores por encima serán los que nos interesen. Almacena estos paquetes **top descargas** en la variable `top_counts`. **NOTA: De ahora en adelante concatena todas las operaciones partiendo del elemento `cran`, usando _pipes_**.
 ```{r}
-
-
-
-
-
+umbral <- quantile(pack_sum$count, probs = 0.99)
+top_counts <- pack_sum %>% filter(umbral < count)
+top_counts
 ```
 23. Repite el apartado anterior utilizando **pipes** para que finalmente el resultado se ordene, en orden descendente, según el número de descargas (`count`) y se almacene el la variable `top_counts_sorted`
 ```{r}
 
-
-
-
-
-
-
-
-
+top_counts_sorted <- cran %>% group_by(package) %>% summarise(count = n(), unique = (n_distinct(country)), countries = n_distinct(country), avg_bytes = mean(size)) %>% filter(umbral < count) %>% arrange(desc(count))
+top_counts_sorted
 ```
 
 24. En lugar de utilizar el recuento de descargas, es más lógico considerar el número de ordenadores distintos en los que se han descargado las librerías, para ello utilizaríamos la columna `unique` que cuenta solo una descarga por ordenador, independientemente del número de veces que se descarge una librería. Repite los cálculos considerando esta variable y almacena el resultado en `top_unique_sorted`.
