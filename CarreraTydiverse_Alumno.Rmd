@@ -296,6 +296,7 @@ cran %>% filter(size_mb >= 0.5)
 28. Repite el apartado anterior ordenando los resultados, en orden descendente según el tamaño en Megabytes y muéstralo por pantalla.
 ```{r}
 
+cran %>% filter(size_mb >= 0.5) %>% arrange(-size_mb)
 
 
 
