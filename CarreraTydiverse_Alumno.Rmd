@@ -265,13 +265,10 @@ top_counts_sorted
 24. En lugar de utilizar el recuento de descargas, es más lógico considerar el número de ordenadores distintos en los que se han descargado las librerías, para ello utilizaríamos la columna `unique` que cuenta solo una descarga por ordenador, independientemente del número de veces que se descarge una librería. Repite los cálculos considerando esta variable y almacena el resultado en `top_unique_sorted`.
 
 ```{r}
+umbral <- quantile(pack_sum$unique, probs = 0.99)
 
-
-
-
-
-
-
+top_unique_sorted <-  cran %>% group_by(package) %>% summarise(count = n(), unique = (n_distinct(country)), countries = n_distinct(country), avg_bytes = mean(size)) %>% filter(umbral < unique) %>%arrange(-(unique))
+top_counts_sorted
 
 ```
 25. Completa lo que se indica  usando `pipes`. Selecciona las columnas `ip_id, country, package, size` de `cran` y muestra el resultado por pantalla usando `print`. No es necesario almacenar.
