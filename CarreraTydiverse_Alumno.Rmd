@@ -274,7 +274,7 @@ top_counts_sorted
 25. Completa lo que se indica  usando `pipes`. Selecciona las columnas `ip_id, country, package, size` de `cran` y muestra el resultado por pantalla usando `print`. No es necesario almacenar.
 
 ```{r}
-
+print(cran%>%select(ip_id,country,package,size))
 
 
 ```
