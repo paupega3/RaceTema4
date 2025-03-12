@@ -169,7 +169,8 @@ cran %>% filter(r_os== "linux-gnu" & size > 100500)
 ```
 9. Elige aquellas descargas en las que la versión del sistema operativo no está vacía.
 ```{r}
-
+library(tidyr)
+cran %>% drop_na(version)
 ```
 10. Almacena en `cran2` todas las columnas entre `size` y `ip_id`. 
 ```{r}
