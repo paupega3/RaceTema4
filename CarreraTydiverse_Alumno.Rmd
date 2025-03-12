@@ -204,12 +204,12 @@ cran3
 
 15. Crea una nueva variable en `cran3` llamada `size_mb` que contenga el tamaño de la descarga expresado en Mbytes ($1Mbyte=2^{20}$ bytes).
 ```{r}
-cran3 <- cran3 %>% mutate(size_mb = size*(2**20))
+cran3 <- cran3 %>% mutate(size_mb = size/(2**20))
 cran3
 ```
 16. Sabiendo que 1Gb son $2^{10}$ Mbytes, crea una nueva variable en `cran3` llamada `size_gb` que contenga el tamaño de la descarga expresado en Gbytes.
 ```{r}
-cran3 <-cran3 %>% mutate(size_gb = size_mb * 2**10)
+cran3 <-cran3 %>% mutate(size_gb = size_mb / 2**10)
 cran3
 ```
 17. Considera que se ha detectado un error en el sistema donde todos los tamaños de las descargas son 1000 bytes menores de lo que corresponde. Crea una nueva variable llamada `correct_size` con el valor correcto. 
@@ -283,14 +283,13 @@ print(cran%>%select(ip_id,country,package,size))
 
 ```{r}
 cran <- cran %>% mutate(size_mb = size*(2**20))
-
 cran
 
 ```
 
 27. Selecciona aquellas descargas cuyo tamaño es menor o igual que 0.5 Mbytes
 ```{r}
-
+cran %>% select(size_mb >= 0.5)
 
 
 ```
